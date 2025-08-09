@@ -8,7 +8,7 @@ from fpdf import FPDF
 try:
     openai.api_key = st.secrets["OPENAI_API_KEY"]
 except KeyError:
-    st.error("❌ OPENAI_API_KEY not found in Streamlit Secrets.")
+    st.error(" OPENAI_API_KEY not found in Streamlit Secrets.")
     st.stop()
 
 # Inspirational quotes
@@ -55,27 +55,27 @@ def create_pdf(content):
     return pdf.output(dest="S").encode("latin1")
 
 # Sidebar navigation
-st.sidebar.title("📍 Navigation")
-page = st.sidebar.radio("Go to:", ["🏠 Home", "📝 Quiz Generator", "ℹ️ About"])
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Go to:", [" Home", "Quiz Generator", " About"])
 
 # HOME PAGE
-if page == "🏠 Home":
-    st.markdown("<h1 style='text-align:center;'>Welcome to AI Quiz Maker 📝</h1>", unsafe_allow_html=True)
+if page == "Home":
+    st.markdown("<h1 style='text-align:center;'>Welcome to AI Quiz Maker </h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align:center;'>Turn your notes into multiple-choice quizzes instantly, powered by AI.</p>", unsafe_allow_html=True)
-    st.markdown(f"<div class='quote'>💡 {random.choice(quotes)}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='quote'> {random.choice(quotes)}</div>", unsafe_allow_html=True)
     st.image("https://images.unsplash.com/photo-1584697964190-6f68b84d0c0f", caption="Learning made easier", use_container_width=True)
 
 # QUIZ GENERATOR PAGE
-elif page == "📝 Quiz Generator":
-    st.markdown("<h2>📝 AI Quiz Generator</h2>", unsafe_allow_html=True)
+elif page == "Quiz Generator":
+    st.markdown("<h2>AI Quiz Generator</h2>", unsafe_allow_html=True)
     st.write("Paste your notes or topic below, and I'll create a multiple-choice quiz instantly!")
-    st.markdown(f"<div class='quote'>💡 {random.choice(quotes)}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='quote'> {random.choice(quotes)}</div>", unsafe_allow_html=True)
 
     input_text = st.text_area("Enter your notes or topic:", height=200)
 
-    if st.button("🚀 Generate Quiz"):
+    if st.button("Generate Quiz"):
         if not input_text.strip():
-            st.warning("⚠️ Please enter some text or a topic first.")
+            st.warning(" Please enter some text or a topic first.")
         else:
             with st.spinner("Generating quiz..."):
                 try:
@@ -92,18 +92,18 @@ elif page == "📝 Quiz Generator":
                     )
 
                     # Debug output
-                    st.subheader("🔍 Debug: Raw API Response")
+                    st.subheader(" Debug: Raw API Response")
                     st.json(response)
 
                     quiz = response.choices[0].message.content.strip()
 
                     if not quiz:
-                        st.error("❌ API returned no content.")
+                        st.error(" API returned no content.")
                         st.stop()
 
                     # Display quiz
                     st.markdown("<div class='quiz-card'>", unsafe_allow_html=True)
-                    st.write("📚 Your Quiz:\n", quiz)
+                    st.write(" Your Quiz:\n", quiz)
                     st.markdown("</div>", unsafe_allow_html=True)
 
                     # Copyable text
@@ -112,19 +112,19 @@ elif page == "📝 Quiz Generator":
                     # Download as PDF
                     pdf_bytes = create_pdf(quiz)
                     st.download_button(
-                        label="📥 Download as PDF",
+                        label=" Download as PDF",
                         data=pdf_bytes,
                         file_name="quiz.pdf",
                         mime="application/pdf"
                     )
 
                 except Exception as e:
-                    st.error("❌ An error occurred while generating the quiz.")
+                    st.error(" An error occurred while generating the quiz.")
                     st.exception(e)
 
 # ABOUT PAGE
-elif page == "ℹ️ About":
-    st.markdown("<h2>ℹ️ About This App</h2>", unsafe_allow_html=True)
+elif page == " About":
+    st.markdown("<h2>About This App</h2>", unsafe_allow_html=True)
     st.write("""
         **AI Quiz Maker** was built for **Panda Hacks 2025** 🐼 to help students 
         turn their notes into interactive quizzes instantly.  
@@ -140,17 +140,17 @@ elif page == "ℹ️ About":
         - OpenAI GPT model  
         - FPDF for PDF generation  
     """)
-    st.markdown(f"<div class='quote'>💡 {random.choice(quotes)}</div>", unsafe_allow_html=True)elif page == " About":
+    st.markdown(f"<div class='quote'> {random.choice(quotes)}</div>", unsafe_allow_html=True)
+elif page == " About":
     st.markdown("<h2> About This App</h2>", unsafe_allow_html=True)
     st.write("""
-        **AI Quiz Maker** was built for **Panda Hacks 2025** 🐼 to help students 
+        **AI Quiz Maker** was built for **Panda Hacks 2025**  to help students 
         turn their notes into interactive quizzes instantly.  
         
         **Features:**
         - Multiple-choice quiz generation from text  
         - Motivational quotes to keep you inspired  
         - Download quizzes as PDF  
-        - Easy to use, no coding required  
         
         **Tech Stack:**
         - Python + Streamlit  
