@@ -6,7 +6,7 @@ from fpdf import FPDF
 
 # Load API key from Streamlit secrets
 try:
-    openai.api_key = st.secrets["OPENAI_API_KEY"]
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 except KeyError:
     st.error(" OPENAI_API_KEY not found in Streamlit Secrets.")
     st.stop()
